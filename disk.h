@@ -3,12 +3,14 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <sys/stat.h>
 
 // ==================== DISK INTERFACE ====================
 
 typedef struct DiskInterface {
     int disk_file;                 // File handle for the disk image
     void* disk_base;
+    struct stat fs_info;
     uint64_t total_blocks;           // Total blocks available
     bool is_mounted;                 // Whether filesystem is mounted
 } DiskInterface;

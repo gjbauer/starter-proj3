@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include <sys/mman.h>
 #include <assert.h>
 
@@ -10,9 +11,8 @@
 DiskInterface* disk_open(const char* filename)
 {
 	DiskInterface *disk = (DiskInterface*)malloc(sizeof(DiskInterface));
-	struct stat fs_info;
 	
-	if (stat(filename, &fs_info) != 0) {
+	if (stat(filename, &disk->fs_info) != 0) {
 		fprintf(stderr, "Failed to stat filesystem!!");
 		return NULL;
 	}
@@ -20,7 +20,7 @@ DiskInterface* disk_open(const char* filename)
 	disk->disk_file = open(filename, O_RDWR, 0644);
 	assert(disk->disk_file != -1);
 	
-	disk->disk_base = mmap(0, fs_info.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, disk->disk_file, 0);
+	disk->disk_base = mmap(0, disk->fs_info.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, disk->disk_file, 0);
 	assert(disk->disk_base != MAP_FAILED);
 	
 	return disk;
@@ -28,7 +28,7 @@ DiskInterface* disk_open(const char* filename)
 
 void disk_close(DiskInterface* disk)
 {
-	munmap(disk->disk_base);
+	munmap(disk->disk_base, disk->fs_info.st_size);
 	close(disk->disk_file);
 	free(disk);
 }
