@@ -1,3 +1,11 @@
+#ifndef NBTRFS_H
+#define NBTRFS_H
+
+#include "disk.h"
+#include "directory.h"
+#include "inode.h"
+#include "superblock.h"
+
 // ==================== FILESYSTEM HIGH-LEVEL API ====================
 
 typedef struct Filesystem {
@@ -35,3 +43,6 @@ void fs_show_block_allocation(Filesystem* fs);
 // Time utilities
 uint64_t get_current_timestamp();
 void timestamp_to_string(uint64_t timestamp, char* buffer, size_t size);
+
+#endif
+

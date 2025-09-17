@@ -1,9 +1,13 @@
 #ifndef DISK_H
 #define DISK_H
+
+#include <stdint.h>
+#include <stdbool.h>
+
 // ==================== DISK INTERFACE ====================
 
 typedef struct DiskInterface {
-    int* disk_file;                 // File handle for the disk image
+    int disk_file;                 // File handle for the disk image
     uint64_t total_blocks;           // Total blocks available
     bool is_mounted;                 // Whether filesystem is mounted
 } DiskInterface;

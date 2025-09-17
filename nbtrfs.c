@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "disk,h"
+#include "disk.h"
 
 // File operations
 int file_create(DiskInterface* disk, uint64_t parent_inode, const char* name, uint64_t* new_inode);
