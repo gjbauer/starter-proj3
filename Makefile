@@ -30,5 +30,8 @@ gdb: nufs
 	mkdir -p mnt || true
 	lldb --args ./nbtrfs -s -f mnt data.nbtrfs
 
+open:
+	gedit *.h *.c
+
 .PHONY: clean mount unmount gdb
 
