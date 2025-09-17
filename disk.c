@@ -4,8 +4,10 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <assert.h>
+#include <string.h>
 
 #include "disk.h"
+#include "config.h"
 
 // Disk operations
 DiskInterface* disk_open(const char* filename)
@@ -33,6 +35,28 @@ void disk_close(DiskInterface* disk)
 	free(disk);
 }
 
-int disk_read_block(DiskInterface* disk, uint64_t block_num, void* buffer);
-int disk_write_block(DiskInterface* disk, uint64_t block_num, const void* buffer);
+int disk_read_block(DiskInterface* disk, uint64_t block_num, void* buffer)
+{
+	int rv = -1;
+	void *block = disk->disk_base + BLOCK_SIZE * block_num;
+	
+	if (memcpy(buffer, block, BLOCK_SIZE)) {
+		rv = 0;
+	}
+	
+	return rv;
+}
+
+int disk_write_block(DiskInterface* disk, uint64_t block_num, const void* buffer)
+{
+	int rv = -1;
+	void *block = disk->disk_base + BLOCK_SIZE * block_num;
+	
+	if (memcpy(block, buffer, BLOCK_SIZE)) {
+		rv = 0;
+	}
+	
+	return rv;
+}
+
 int disk_format(DiskInterface* disk, const char* volume_name);
