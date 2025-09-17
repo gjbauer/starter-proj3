@@ -20,6 +20,7 @@ DiskInterface* disk_open(const char* filename)
 	assert(disk->disk_file != -1);
 	
 	disk->disk_base = mmap(0, fs_info.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, disk->disk_file, 0);
+	assert(disk->disk_base != MAP_FAILED);
 	
 	return disk;
 }
