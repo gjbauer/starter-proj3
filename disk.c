@@ -14,6 +14,7 @@ DiskInterface* disk_open(const char* filename)
 	
 	if (stat(filename, &fs_info) != 0) {
 		fprintf(stderr, "Failed to stat filesystem!!");
+		return NULL;
 	}
 	
 	disk->disk_file = open(filename, O_RDWR, 0644);
