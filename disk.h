@@ -8,6 +8,7 @@
 
 typedef struct DiskInterface {
     int disk_file;                 // File handle for the disk image
+    void* disk_base;
     uint64_t total_blocks;           // Total blocks available
     bool is_mounted;                 // Whether filesystem is mounted
 } DiskInterface;
