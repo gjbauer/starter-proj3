@@ -5,6 +5,10 @@
 #include <stdint.h>
 
 #include "disk.h"
+#include "config.h"
+#include "superblock.h"
+#include "directory.h"
+#include "inode.h"
 
 // File operations
 int file_create(DiskInterface* disk, uint64_t parent_inode, const char* name, uint64_t* new_inode);
