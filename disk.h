@@ -18,12 +18,11 @@ typedef struct DiskInterface {
 // Disk operations
 DiskInterface* disk_open(const char* filename);
 void disk_close(DiskInterface* disk);
-void* pages_get_page(DiskInterface* disk, int pnum);
+void* get_block(DiskInterface* disk, int pnum);
 void* get_superblock();
-void* get_pages_bitmap();
+void* get_block_bitmap();
 void* get_inode_bitmap();
 void* get_inode_start();
-void* get_root_start();
 int alloc_page();
 void free_page(int pnum);
 int disk_read_block(DiskInterface* disk, uint64_t block_num, void* buffer);
