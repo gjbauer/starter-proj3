@@ -102,7 +102,7 @@ free_page(int pnum)
 int disk_read_block(DiskInterface* disk, uint64_t block_num, void* buffer)
 {
 	int rv = -1;
-	void *block = pages_get_page(block_num);
+	void *block = get_block(block_num);
 	
 	if (memcpy(buffer, block, BLOCK_SIZE)) {
 		rv = 0;
@@ -114,7 +114,7 @@ int disk_read_block(DiskInterface* disk, uint64_t block_num, void* buffer)
 int disk_write_block(DiskInterface* disk, uint64_t block_num, const void* buffer)
 {
 	int rv = -1;
-	void *block = pages_get_page(block_num);
+	void *block = get_block(block_num);
 	
 	if (memcpy(block, buffer, BLOCK_SIZE)) {
 		rv = 0;
